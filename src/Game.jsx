@@ -1,5 +1,4 @@
 import { useState } from "react"
-import PropTypes from 'prop-types'
 import { GameLayout } from "./GameLayout"
 
 
@@ -8,6 +7,32 @@ export default function Game(){
   const [isGameEnded, setIsGameEnded] = useState(false)
   const [isDraw, setIsDraw] = useState(false)
   const [field, setField] = useState(['', '', '', '', '', '', '', '', ''])
+
+  const WIN_PATTERNS = [
+		[0, 1, 2], [3, 4, 5], [6, 7, 8], // варианты побед по горизонтали
+		[0, 3, 6], [1, 4, 7], [2, 5, 8], // варианты побед по вертикали
+		[0, 4, 8], [2, 4, 6] // варианты побед по диагонали
+	]
+
+	const makeMove = (elIndex) => { 
+		// сделать ход
+    const newField = [...field]
+		if(newField[elIndex] !== '' || isGameEnded || isDraw) return 
+    newField[elIndex] = currentPlayer
+
+		// проверить итог
+		const checkWin = WIN_PATTERNS.some(patt => {
+			return patt.every(pattEl => newField[pattEl] === currentPlayer)
+		})
+
+		checkWin 
+    ? setIsGameEnded(true)
+    : newField.every(el => el !== '')
+      ? setIsDraw(true)
+      : setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X')
+
+    setField(newField)
+	}
 
   const startAgain = () => {
     setCurrentPlayer('X')
@@ -19,17 +44,9 @@ export default function Game(){
   return <GameLayout 
           field={field}
           currentPlayer={currentPlayer}
-          setCurrentPlayer={setCurrentPlayer}
           isGameEnded={isGameEnded}
-          setIsGameEnded={setIsGameEnded}
           isDraw={isDraw}
-          setIsDraw={setIsDraw}
+          makeMove={makeMove}
           startAgain={startAgain}
          />
-}
-GameLayout.propTypes = {
-  currentPlayer: PropTypes.string,
-  isGameEnded: PropTypes.boolean,
-  isDraw: PropTypes.boolean,
-  field: PropTypes.array
 }

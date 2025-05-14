@@ -1,6 +1,9 @@
-import { useState } from 'react'
 import { InformationLayout } from './InformationLayout'
 
-export const Information = ({ ...gameInfo }) => {
-	return <InformationLayout {...gameInfo} />
+export const Information = ({isDraw, isGameEnded, currentPlayer}) => {
+	const status = isDraw ? 'Ничья'
+	: !isDraw && isGameEnded ? `Победа: ${currentPlayer}`
+	: !isDraw && !isGameEnded ? `Ходит: ${currentPlayer}`
+	: 'Возникла ошибка'
+	return <InformationLayout status={status} />
 }
