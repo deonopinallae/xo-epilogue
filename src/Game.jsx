@@ -1,12 +1,28 @@
-import { useState } from 'react'
-import { store, storeSetState } from '../store'
 import styles from './Game.module.css'
 import { Field } from './components/Field/Field'
 import { Information } from './components/Information/Information'
+import { useDispatch } from 'react-redux'
+import {
+	currentPlayerSelector,
+	isDrawSelector,
+	isGameEndedSelector,
+	fieldSelector,
+} from './selectors'
+import {
+	setCurrentPlayer,
+	setField,
+	setIsGameEnded,
+	setIsDraw,
+	setStartAgain,
+} from './actions'
+import { useSelector } from 'react-redux'
 
-export default function Game() {
-	const { currentPlayer, field, isGameEnded, isDraw } = store.getState()
-	const [isStateChanged, setIsStateChanged] = useState(true)
+export const Game = () => {
+	const isDraw = useSelector(isDrawSelector)
+	const isGameEnded = useSelector(isGameEndedSelector)
+	const currentPlayer = useSelector(currentPlayerSelector)
+	const field = useSelector(fieldSelector)
+	const dispatch = useDispatch()
 
 	const WIN_PATTERNS = [
 		[0, 1, 2],
@@ -31,23 +47,18 @@ export default function Game() {
 		})
 
 		if (checkWin) {
-			storeSetState('SET_IS_GAME_ENDED', true)
-			setIsStateChanged(!isStateChanged)
+			dispatch(setIsGameEnded(true))
 		} else if (newField.every((el) => el !== '')) {
-			storeSetState('SET_IS_DRAW', true)
-      setIsStateChanged(!isStateChanged)
+			dispatch(setIsDraw(true))
 		} else {
-			storeSetState('SET_CURRENT_PLAYER', currentPlayer === 'X' ? 'O' : 'X')
-			setIsStateChanged(!isStateChanged)
+			dispatch(setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X'))
 		}
-		storeSetState('SET_FIELD', newField)
-    setIsStateChanged(!isStateChanged)
+		dispatch(setField(newField))
 	}
 
 	const startAgain = () => {
-    storeSetState('START_AGAIN')
-    setIsStateChanged(!isStateChanged)
-  }
+		dispatch(setStartAgain())
+	}
 
 	return (
 		<>

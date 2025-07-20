@@ -1,4 +1,4 @@
-import styles from './Field.module.css'
+import styles from './styles.module.css'
 
 
 export const Field = ({ field, makeMove }) => {
