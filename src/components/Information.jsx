@@ -1,9 +1,8 @@
-import styles from './styles.module.css'
 import {
 	currentPlayerSelector,
 	isDrawSelector,
 	isGameEndedSelector,
-} from '../../selectors'
+} from '../selectors'
 import {Component} from 'react'
 import { connect } from 'react-redux'
 
@@ -26,7 +25,7 @@ class InformationContainer extends Component {
 			: !isDraw && !isGameEnded
 				? `Ходит: ${currentPlayer}`
 				: 'Возникла ошибка'
-		return <p className={styles.title}>{status}</p>
+		return <p className='title'>{status}</p>
 	}
 }
 

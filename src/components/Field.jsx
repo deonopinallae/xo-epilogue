@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import styles from './styles.module.css'
 
 export class Field extends Component {
 	constructor(props) {
@@ -8,12 +7,12 @@ export class Field extends Component {
 
 	render() {
 		return (
-			<div className={styles.field}>
+			<div className='grid grid-cols-3 field'>
 				{this.props.field.map((el, index) => (
-					<div key={index} className={styles.fieldEL}>
+					<div key={index} className='fieldEL'>
 						<button
 							onClick={() => this.props.makeMove(index)}
-							className={`${styles.fieldButton} ${el ? styles[el] : ''}`}
+							className={`w-full h-full ${el ? [el] : ''}`}
 						></button>
 					</div>
 				))}

@@ -1,6 +1,5 @@
-import styles from './Game.module.css'
-import { Field } from './components/Field/Field'
-import { Information } from './components/Information/Information'
+import { Field } from './components/Field'
+import { Information } from './components/Information'
 import {
 	currentPlayerSelector,
 	isDrawSelector,
@@ -35,8 +34,6 @@ const mapDispatchToProps = {
 class GameContainer extends Component {
 	constructor(props) {
 		super(props)
-		// this.makeMove = this.makeMove.bind(this)
-		// this.startAgain = this.startAgain.bind(this)
 	}
 
 	render() {
@@ -82,7 +79,7 @@ class GameContainer extends Component {
 			<>
 				<Information />
 				<Field field={this.props.field} makeMove={makeMove} />
-				<button onClick={startAgain} className={styles.button}>
+				<button onClick={startAgain} className='button'>
 					Начать заново
 				</button>
 			</>

@@ -1,17 +1,42 @@
 @import 'tailwindcss';
 
+@layer field {
+	.field {
+		width: clamp(267px, 27.78vw, 400px);
+		height: clamp(267px, 27.78vw, 400px);
+		margin: 20px;
+		border: 1.5px solid rgb(37, 90, 108);
+		box-shadow: 0 0 20px 5px rgb(73, 144, 168);
+	}
+
+	.fieldEL {
+		border: 1.5px solid rgb(37, 90, 108);
+		background-color: rgb(187, 209, 216);
+	}
+	.X {
+		background-image: url('./assets/x.PNG');
+	}
+
+	.O {
+		background-image: url('./assets/o.PNG');
+	}
+
+	.X,
+	.O {
+		background-position: center;
+		background-size: 50%;
+		background-repeat: no-repeat;
+		margin: auto;
+	}
+	.button {
+		border: 2px solid rgb(37, 90, 108);
+		padding: 7px;
+	}
+}
+
 .button {
 	border: 2px solid rgb(37, 90, 108);
 	padding: 7px;
-}
-
-*,
-*::after,
-*::before,
-html {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
 }
 
 body {
